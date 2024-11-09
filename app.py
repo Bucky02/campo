@@ -1,8 +1,6 @@
 from flask import Flask, render_template, jsonify
 import json
-import subprocess
 import os
-import sys
 from datetime import datetime
 
 app = Flask(__name__)
@@ -36,6 +34,8 @@ def prenotazioni():
                 print(f"Errore nella conversione della data {data}: {e}")
                 continue
 
+            # Cicla su ogni prenotazione nella lista di prenotazioni per
+
             # Cicla su ogni prenotazione nella lista di prenotazioni per il giorno
             for prenotazione in lista_prenotazioni:
                 orario = prenotazione['orario']
@@ -59,13 +59,7 @@ def prenotazioni():
 def index():
     return render_template('index.html')
 
-def run_bot():
-    """Avvia il bot Telegram in un processo separato"""
-    subprocess.Popen([sys.executable, "bot.py"])
-
 if __name__ == '__main__':
-    # Avvia il bot in background
-    run_bot()
-
     # Avvia il server web
     app.run(debug=True, host='0.0.0.0', port=5000)
+
