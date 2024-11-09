@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    <style>
+        #calendar {
+            max-height: 500px; /* Regolato per evitare spazi vuoti */
+        }
+    </style>
+</head>
+<body>
+
+<div id="calendar"></div>
+
+<script>
+    $(document).ready(function() {
+        let lastView = 'agendaWeek';
+
+        // Inizializza il calendario
+        $('#calendar').fullCalendar({
+            editable: false,
+            events: function(start, end, timezone, callback) {
+                $.ajax({
+                    url: '/prenotazioni',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        const events = data.map(event => ({
+                            title: event.title,
+                            start: event.start,
+                            end: event.end,
+                            description: event.description
+                        }));
+                        callback(events);
+                    },
+                    error: function() {
+                        alert("Errore nel caricamento delle prenotazioni.");
+                    }
+                });
+            },
+            eventRender: function(event, element) {
+                element.find('.fc-title').html(event.title);
+                element.find('.fc-time').html('');
+                element.append('<div class="fc-description">' + event.description + '</div>');
+            },
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'agendaWeek,agendaDay'
+            },
+            defaultView: 'agendaWeek',
+            editable: false,
+            minTime: "16:00:00",
+            maxTime: "24:00:00",
+            allDaySlot: false,
+            slotLabelInterval: "01:00:00",
+            slotLabelFormat: ["h A"],
+            viewRender: function(view, element) {
+                if ((lastView === 'agendaWeek' && view.name === 'agendaDay') || 
+                    (lastView === 'agendaDay' && view.name === 'agendaWeek')) {
+                    $('#calendar').fullCalendar('gotoDate', moment());
+                }
+                lastView = view.name;
+            }
+        });
+
+        // Aggiorna gli eventi ogni 60 secondi (60000 ms)
+        setInterval(function() {
+            $('#calendar').fullCalendar('refetchEvents');
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+    "07-11-2024": [
+        {
+            "orario": 23,
+            "cognome": "Rossi",
+            "telefono": "3322356734"
+        },
+        {
+            "orario": 22,
+            "cognome": "Lele",
+            "telefono": "1223123"
+        },
+        {
+            "orario": 16,
+            "cognome": "Mauro",
+            "telefono": "2342454223"
+        },
+        {
+            "orario": 21,
+            "cognome": "m",
+            "telefono": "1"
+        }
+    ],
+    "08-11-2024": [
+        {
+            "orario": 23,
+            "cognome": "Alla",
+            "telefono": "453453"
+        },
+        {
+            "orario": 20,
+            "cognome": "mmmm",
+            "telefono": "453452"
+        }
+    ]
+}
