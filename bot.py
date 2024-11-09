@@ -126,9 +126,6 @@ async def ricevi_telefono(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         context.user_data.clear()
 
 
-
-
-
 # Funzione per mostrare gli orari disponibili per un giorno specifico
 async def mostra_orari(message, giorno_selezionato: str) -> None:
     orari = orari_disponibili(giorno_selezionato)
