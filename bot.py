@@ -132,13 +132,18 @@ async def ricevi_telefono(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 # Funzione per mostrare gli orari disponibili per un giorno specifico
 async def mostra_orari(message, giorno_selezionato: str) -> None:
     orari = orari_disponibili(giorno_selezionato)
-    if not orari:
-        await message.reply_text("Non ci sono orari disponibili per questo giorno.")
-        return
 
-    # Crea la tastiera con gli orari disponibili
-    keyboard = [[InlineKeyboardButton(orario, callback_data=f"conferma_{orario}")] for orario in orari]
+    # Crea la tastiera con gli orari disponibili (se ce ne sono)
+    keyboard = []
+    if orari:
+        keyboard = [[InlineKeyboardButton(orario, callback_data=f"conferma_{orario}")] for orario in orari]
+    else:
+        await message.reply_text("Non ci sono orari disponibili per questo giorno.")
+
+    # Aggiungi sempre il bottone "Cambio giorno"
     keyboard.append([InlineKeyboardButton("Cambio giorno", callback_data="cambio_giorno")])
+
+    # Mostra la tastiera
     reply_markup = InlineKeyboardMarkup(keyboard)
     await message.reply_text(f"Ecco gli orari disponibili per {giorno_selezionato}:", reply_markup=reply_markup)
 
