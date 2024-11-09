@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify
 import json
+import subprocess
 import os
+import sys
 from datetime import datetime
 
 app = Flask(__name__)
@@ -18,7 +20,6 @@ def carica_prenotazioni():
     except FileNotFoundError as e:
         print(f"File non trovato: {e}")
         return {}
-
 
 @app.route("/prenotazioni")
 def prenotazioni():
@@ -58,5 +59,13 @@ def prenotazioni():
 def index():
     return render_template('index.html')
 
+def run_bot():
+    """Avvia il bot Telegram in un processo separato"""
+    subprocess.Popen([sys.executable, "bot.py"])
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Avvia il bot in background
+    run_bot()
+
+    # Avvia il server web
+    app.run(debug=True, host='0.0.0.0', port=5000)
