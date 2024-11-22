@@ -37,7 +37,7 @@ def orari_disponibili(data):
     orari = []
     prenotati = prenotazioni.get(data, [])
 
-    for orario in range(16, 24):
+    for orario in range(20, 24):
         # Verifica se esiste una prenotazione per l'orario corrente
         if not any(prenotazione["orario"] == orario for prenotazione in prenotati):
             orari.append(f"{orario}:00 - {orario + 1}:00")
@@ -126,25 +126,27 @@ async def ricevi_telefono(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         context.user_data.clear()
 
 
-# Funzione per mostrare gli orari disponibili per un giorno specifico
 async def mostra_orari(message, giorno_selezionato: str) -> None:
     orari = orari_disponibili(giorno_selezionato)
 
     # Crea la tastiera
     keyboard = []
+
     if orari:
         # Aggiungi i bottoni con gli orari disponibili
         keyboard = [[InlineKeyboardButton(orario, callback_data=f"conferma_{orario}")] for orario in orari]
+        # Mostra la tastiera con gli orari disponibili
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await message.reply_text(f"Ecco gli orari disponibili per {giorno_selezionato}:", reply_markup=reply_markup)
     else:
         # Messaggio quando non ci sono orari disponibili
         await message.reply_text(f"Non ci sono orari disponibili per il giorno {giorno_selezionato}.")
 
-    # Aggiungi sempre il bottone "Cambio giorno"
-    keyboard.append([InlineKeyboardButton("Cambio giorno", callback_data="cambio_giorno")])
+        # Aggiungi sempre il bottone "Cambio giorno" anche quando non ci sono orari
+        keyboard.append([InlineKeyboardButton("Cambio giorno", callback_data="cambio_giorno")])
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await message.reply_text("Puoi scegliere un altro giorno:", reply_markup=reply_markup)
 
-    # Mostra la tastiera
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await message.reply_text(f"Ecco gli orari disponibili per {giorno_selezionato}:", reply_markup=reply_markup)
 
 
 # Funzione per confermare la prenotazione

@@ -39,69 +39,24 @@
             "cognome": "Ffff",
             "telefono": "3"
         }
-    ]
-    ,
-    "11-11-2024": [
-        {
-            "orario": 16,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 17,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 18,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 19,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 20,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 21,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 22,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
-    ],
-    "11-11-2024": [
-        {
-            "orario": 23,
-            "cognome": "Ffff",
-            "telefono": "3"
-        }
     ],
     "11-11-2024": [
         {
             "orario": 24,
             "cognome": "Ffff",
             "telefono": "3"
+        }
+    ],
+    "22-11-2024": [
+        {
+            "orario": 22,
+            "cognome": "M",
+            "telefono": "H"
+        },
+        {
+            "orario": 23,
+            "cognome": "Y",
+            "telefono": "H"
         }
     ]
 }
